@@ -17,7 +17,7 @@
 
 | Metric | Result |
 |---|---|
-| **Generation** | **81.8 tok/s** (median of 8 runs, ±4%) |
+| **Generation** | **74.2 tok/s** (vision on) · 79.8 (text-only) |
 | **Time to first token** | **0.17 s** (short) · 2.78 s (4K) · 30.97 s (45K) |
 | **Context** | **262,144** (model hard ceiling, verified) |
 | **Vision** | ✅ on, **2.9 s/image** |
@@ -27,7 +27,7 @@
 **Vision mode · one-line launch** (paste into PowerShell; close the window to stop):
 
 ```powershell
-& "D:\llama.cpp\build\bin\llama-server.exe" -m "D:\models\Qwen3.8-27B\Qwen3.8-27B-NVFP4-MTP-LOW.gguf" --mmproj "D:\models\Qwen3.8-27B\mmproj-Q8_0.gguf" -ngl 99 -fa on -fit off -c 262144 -np 1 --cache-type-k q4_0 --cache-type-v q4_0 --ctx-checkpoints 4 --spec-type draft-mtp --spec-draft-n-max 3 --reasoning-effort xhigh --reasoning-budget 12000 --chat-template-file "D:\models\Qwen3.8-27B\custom_template.jinja" --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --host 127.0.0.1 --port 8082 --load-mode none --jinja
+& "D:\llama.cpp\build\bin\llama-server.exe" -m "D:\models\esatapedico\Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-MID-HIGH.gguf" --mmproj "D:\models\Qwen3.8-27B\mmproj-Q8_0.gguf" -ngl 99 -fa on -fit off -c 163840 -np 1 --cache-type-k q8_0 --cache-type-v q8_0 --ctx-checkpoints 4 --spec-type draft-mtp --spec-draft-n-max 3 --reasoning-effort xhigh --reasoning-budget 12000 --chat-template-file "D:\models\Qwen3.8-27B\custom_template.jinja" --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --host 127.0.0.1 --port 8082 --load-mode none --jinja
 ```
 
 > Adjust the paths to your setup. **262,144 is the model's hard ceiling** — `-c` values above it are silently capped.
@@ -83,7 +83,7 @@
 
 | Dimension | Value |
 |---|---|
-| Generation | **81.8 tok/s** (median of 8, ±4%) |
+| Generation | **74.2 tok/s** (vision on) · 79.8 (text-only) |
 | Time to first token | **0.17 s** (short) · 2.78 s (4K) · 30.97 s (45K) |
 | Long-input | **1992 tok/s** (4K prefill) · 45K in 31 s |
 | Vision | **2.9 s/image** (Q8 mmproj, median of 3) |
