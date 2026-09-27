@@ -17,20 +17,22 @@
 
 | 维度 | 结果 |
 |---|---|
-| **生成速度** | **81.8 tok/s**（8 轮中位，波动 ±4%）|
-| **首 token 延迟** | **0.17 秒**（短问）· 2.8 秒（4K 材料）· 31 秒（45K 材料）|
-| **上下文** | **256K**（= 262,144 tokens，模型硬上限·已实测验证）|
-| **视觉** | ✅ 开启，**2.9 秒/张** |
-| **满载生成** | 29.5 tok/s（装载 13.8 万 tokens 后）|
-| **装载速度** | 1992 tok/s（4K prefill）|
+| **模型** | **TWIN-TURBO MID-HIGH**（DavidAU 调优 + esatapedico NVFP4 转换，15.75 GB）|
+| **生成速度** | **74.2 tok/s**（含视觉）· 79.8（纯文本）|
+| **思考行为** | **过度思考 −93%**（失控 prompt：19,859 → 1,318 字符，31.7 秒完整回答）|
+| **上下文** | **160K**（q8_0 KV 的安全甜点；256K+ 会触发慢路径）|
+| **视觉** | ✅ 开启，**3.9 秒/张** |
+| **精度链** | heads 全 Q8_0 + KV q8_0 = **全高清**（多轮累积最稳）|
 
 **一行命令启动**（PowerShell 粘贴回车；关闭窗口即停止）：
 
 ```powershell
-& "D:\llama.cpp\build\bin\llama-server.exe" -m "D:\models\Qwen3.8-27B\Qwen3.8-27B-NVFP4-MTP-LOW.gguf" --mmproj "D:\models\Qwen3.8-27B\mmproj-Q8_0.gguf" -ngl 99 -fa on -fit off -c 262144 -np 1 --cache-type-k q4_0 --cache-type-v q4_0 --ctx-checkpoints 4 --spec-type draft-mtp --spec-draft-n-max 3 --reasoning-effort xhigh --reasoning-budget 12000 --chat-template-file "D:\models\Qwen3.8-27B\custom_template.jinja" --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --host 127.0.0.1 --port 8082 --load-mode none --jinja
+& "D:\llama-custom13\llama-server.exe" -m "D:\models\esatapedico\Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-MID-HIGH.gguf" --mmproj "D:\models\Qwen3.8-27B-quant-test\mmproj-Q8_0.gguf" -ngl 99 -fa on -fit off -c 163840 -np 1 --ctx-checkpoints 4 --load-mode none --jinja --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 3 --reasoning-effort xhigh --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --host 127.0.0.1 --port 8082
 ```
 
-**统一底座**：NVFP4-MTP-LOW（14.47 GiB）· **q4_0 KV** · 自编译 CUDA 13.3 · RTX 5090 Laptop 24GB
+**统一底座**：TWIN-TURBO MID-HIGH（15.75 GB）· **q8_0 KV** · 自编译 CUDA 13.3 · RTX 5090 Laptop 24GB
+
+> ⚠️ **刻意不用** `--reasoning-budget` 和 `--chat-template-file`：模型自带 10 种模式系统（5 reasoning + 5 instruct，einstein/spoon/xhigh…，聊天中实时切换），我们的旧运行时补丁会与它冲突。> 📜 **为什么换模型**：完整决策记录见 [data/tturbo-adoption.md](data/tturbo-adoption.md)
 
 ![最终性能画像](assets/chart11-final-performance.svg)
 
@@ -38,9 +40,9 @@
 
 | 文件 | 大小 | 获取地址 |
 |---|---|---|
-| **Qwen3.8-27B-NVFP4-MTP-LOW.gguf**（主力模型）| 14.47 GiB | [**esatapedico / Qwen3.8-27B-NVFP4-MTP-GGUF**](https://huggingface.co/esatapedico/Qwen3.8-27B-NVFP4-MTP-GGUF) → 选 **`LOW`** 档 |
-| **mmproj-BF16.gguf**（视觉组件）| 888 MB | [Qwen / Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) 官方仓库（可自行量化到 Q8_0 省 288 MB → [视觉配置指南](docs/vision-setup.md)）|
-| **llama.cpp 引擎** | ~35 MB | [官方 CUDA 发布包](https://github.com/ggml-org/llama.cpp/releases)（或按[自编译配方](docs/windows-self-build-recipe.md)获得本仓库同款性能）|
+| **TWIN-TURBO-...-MID-HIGH.gguf**（主力模型）| 15.75 GB | [**esatapedico / TWIN-TURBO-NVFP4-GGUF**](https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-GGUF) → 选 **`MID-HIGH`** 档 |
+| **mmproj**（视觉组件，用原版）| ~0.9 GB | [Qwen / Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) 或 [unsloth/Qwen3.8-27B-GGUF](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF) |
+| **llama.cpp 引擎**（需 NVFP4/type-40 支持）| ~35 MB | [官方新版发布包](https://github.com/ggml-org/llama.cpp/releases)（或按[自编译配方](docs/windows-self-build-recipe.md)）|
 
 > 🧩 **防过度思考模板**（`custom_template.jinja`）已包含在本仓库 → [scripts/custom_template.jinja](scripts/custom_template.jinja)
 > 🌐 **国内加速**：把下载地址里的 `huggingface.co` 换成 `hf-mirror.com` 即可。
@@ -55,12 +57,11 @@
 
 | 你的场景 | 选择 |
 |---|---|
-| 日常对话 / 编码 / agent（要视觉）| **256K + q4_0（上面一行命令）** ✅ |
-| 想要更大的上下文 | 256K 是硬上限；YaRN 1M 实测仅 4-5 tok/s（[详情](docs/context-limits-and-yarn.md)）|
-| 多客户端同时连接 | `-np 2`（各 131K）/ `-np 4`（各 65K，总吞吐 124 tok/s）|
+| 日常对话 / 编码 / agent（要视觉）| **TWIN-TURBO MID-HIGH + q8_0 + 160K（上面一行命令）** ✅ |
+| 需要灌 20 万+ tokens 的大材料 | 切 262K 备用配置：NVFP4-MTP-LOW + q4_0 + `-c 262144`（见 git 历史的 start-nvfp4-low.ps1）|
+| 多客户端同时连接 | `-np 2`（各 80K）/ `-np 4`（各 40K）|
 | 真正的 1M 交互 | 需换 32GB+ 显存（vLLM 路线）|
-| 多客户端同时连接 | `-np 2`（各 131K）/ `-np 4`（各 65K，总吞吐 124 tok/s）|
-| 思考停不下来 | 已内置双保险（budget + 模板注入），无需操作 |
+| 思考停不下来 | **TWIN-TURBO 已在模型层修复**（−93%），无需任何补丁 |
 
 **七个反直觉发现**（全部有对照组实测数据）：
 
@@ -72,8 +73,9 @@
 6. **一堆"社区推荐"参数在本机是负优化**：`-ub 1024`（−16%）、`--spec-default`（−39%）、iMatrix 混合量化（−27%）
 7. **注意力的真实成本**：空载 82 tok/s → 装载 13.8 万 tokens 后降到 **29.5 tok/s**（每生成一步都要读完整个 KV）
 8. **n-max 3 与 4 几乎打平** —— 严格交叉测试（各 15 样本）显示 4 平均快 3~4%，但**波动大一倍**（69~101 vs 74~89 tok/s）→ **最终保留 3**（稳定优先）。详见 [对比报告](data/nmax-3-vs-4-comparison.md)
+9. **模型层修复 > 运行时补丁** —— DavidAU 的 TWIN-TURBO tune 把"过度思考"直接训练掉了（失控 prompt 思考量 **−93%**：19,859 → 1,318 字符），我们之前那套 budget+模板注入的双保险反而会与它自带的模式系统**冲突**（叠加后更慢、思考更多）→ **补丁退役**。详见 [换模决策记录](data/tturbo-adoption.md)
 
-## 📜 七轮调优历程
+## 📜 八轮调优历程
 
 | 轮次 | 主题 | 关键收获 |
 |---|---|---|
@@ -83,22 +85,22 @@
 | 4 | **自编译引擎** | CUDA 13.3 官方配对：prefill +13% · 修复上游 bug |
 | 5 | **上下文修正（一）** | 150K → 180K（发现 `-np 1` 释放 1.15 GB 显存）|
 | 6 | **穷尽复查** | 40+ 参数全排查，确认无遗漏 |
-| 7 | **上下文真相（本轮）** | **q4_0 KV 让 256K 真正可用**（+45% 上下文、速度更快）· 揭开静默封顶与 YaRN 真相 |
+| 7 | **上下文真相** | **q4_0 KV 让 256K 真正可用**（+45% 上下文、速度更快）· 揭开静默封顶与 YaRN 真相 |
+| 8 | **模型换代（本轮）** | **TWIN-TURBO MID-HIGH 转正**：思考循环 −93%（模型层修复）、全 Q8_0 精度链、双保险退役 |
 
 ## 📊 成绩单（最终配置实测）
 
 | 维度 | 数值 |
 |---|---|
-| 生成速度 | **81.8 tok/s**（8 轮中位，波动 ±4%）|
-| 首 token 延迟 | **0.17 s**（短问）· 2.78 s（4K）· 30.97 s（45K）|
-| 长文本处理 | **1992 tok/s**（4K prefill）｜ 45K 输入 31 秒 |
-| 视觉识别 | **2.9 秒/张**（Q8 mmproj，3 轮中位）|
-| 上下文 | **262,144**（模型硬上限；q4_0 KV 让它真正可用）|
-| 满载生成 | 29.5 tok/s（装载 13.8 万 tokens 后）|
-| 显存余量 | 551 MB @ 256K（视觉模式）|
-| 并发能力 | `-np 2` 各 131K（总吞吐 113）｜ `-np 4` 各 65K（总吞吐 124）|
-| 散热 | 12 分钟满载**零衰减** |
-| 思考控制 | xhigh + 双保险（budget 12000 + 模板注入）|
+| 维度 | 数值 |
+|---|---|
+| 生成速度 | **74.2 tok/s**（含视觉）· 79.8（纯文本）|
+| **思考行为** | 失控 prompt：93 s/19,859 字符/无输出 → **31.7 s/1,318 字符/6,034 字符正文**（−93%）|
+| 首个完整回答 | **31.7 秒**（LRU 编码题，含思考）|
+| 视觉识别 | **3.9 秒/张**（原版 mmproj）|
+| 上下文 | **160K**（q8_0 KV 安全甜点；262K+ 触发慢路径）|
+| 显存余量 | 442 MB idle / 403 MB（视觉后）|
+| 思考控制 | **模型层修复**（TWIN-TURBO tune）+ xhigh——运行时补丁已退役 |
 
 ![参数红黑榜](assets/chart8-parameter-scoreboard.svg)
 
