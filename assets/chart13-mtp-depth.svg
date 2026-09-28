@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="400" viewBox="0 0 880 400" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="880" height="400" fill="#ffffff"/>
+  <rect x="1" y="1" width="878" height="398" fill="none" stroke="#d0d7de" rx="10"/>
+
+  <text x="30" y="38" font-size="19" font-weight="700" fill="#1f2328">MTP draft depth: 3 is the sweet spot (re-validated on b11223)</text>
+  <text x="30" y="60" font-size="12.5" fill="#57606a">server-timed decode, 384-token generations, single stream. Drafting deeper = sequential head applications = compounding error.</text>
+
+  <!-- axes -->
+  <line x1="80" y1="300" x2="830" y2="300" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="80" y1="80" x2="80" y2="300" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- y gridlines: 0,20,40,60,80 -->
+  <g stroke="#eaeef2" stroke-width="1">
+    <line x1="80" y1="300" x2="830" y2="300"/>
+    <line x1="80" y1="247.5" x2="830" y2="247.5"/>
+    <line x1="80" y1="195" x2="830" y2="195"/>
+    <line x1="80" y1="142.5" x2="830" y2="142.5"/>
+    <line x1="80" y1="90" x2="830" y2="90"/>
+  </g>
+  <g font-size="11" fill="#57606a" text-anchor="end">
+    <text x="72" y="304">0</text>
+    <text x="72" y="251">20</text>
+    <text x="72" y="199">40</text>
+    <text x="72" y="146">60</text>
+    <text x="72" y="94">80</text>
+  </g>
+  <text x="26" y="200" font-size="12" fill="#57606a" transform="rotate(-90 26 200)">decode tok/s</text>
+
+  <!-- bars: scale 2.625 px per tok/s, baseline y=300 -->
+  <!-- none: 37.9 -> h=99.5, y=200.5 -->
+  <rect x="120" y="200.5" width="130" height="99.5" fill="#8b949e" rx="4"/>
+  <text x="185" y="190" font-size="15" font-weight="700" fill="#1f2328" text-anchor="middle">37.9</text>
+  <text x="185" y="322" font-size="13" fill="#1f2328" text-anchor="middle">spec OFF</text>
+  <text x="185" y="340" font-size="11" fill="#57606a" text-anchor="middle">(reference)</text>
+
+  <!-- d2: 69.7 -> h=183, y=117 -->
+  <rect x="285" y="117" width="130" height="183" fill="#54aeff" rx="4"/>
+  <text x="350" y="106" font-size="15" font-weight="700" fill="#1f2328" text-anchor="middle">69.7</text>
+  <text x="350" y="322" font-size="13" fill="#1f2328" text-anchor="middle">draft-n-max 2</text>
+  <text x="350" y="340" font-size="11" fill="#57606a" text-anchor="middle">tie with 3</text>
+
+  <!-- d3: 68.5 -> h=180, y=120 -->
+  <rect x="450" y="120" width="130" height="180" fill="#1a7f37" rx="4"/>
+  <text x="515" y="109" font-size="15" font-weight="700" fill="#1a7f37" text-anchor="middle">68.5-77.6</text>
+  <text x="515" y="322" font-size="13" font-weight="700" fill="#1a7f37" text-anchor="middle">draft-n-max 3</text>
+  <text x="515" y="340" font-size="11" font-weight="700" fill="#1a7f37" text-anchor="middle">CHAMPION</text>
+
+  <!-- d5: 23.1 -> h=60.6, y=239.4 -->
+  <rect x="615" y="239.4" width="130" height="60.6" fill="#cf222e" rx="4"/>
+  <text x="680" y="229" font-size="15" font-weight="700" fill="#cf222e" text-anchor="middle">23.1</text>
+  <text x="680" y="322" font-size="13" fill="#1f2328" text-anchor="middle">draft-n-max 5</text>
+  <text x="680" y="340" font-size="11" fill="#cf222e" text-anchor="middle">acceptance collapse</text>
+
+  <!-- annotation -->
+  <text x="775" y="150" font-size="11.5" fill="#57606a">single MTP head</text>
+  <text x="775" y="166" font-size="11.5" fill="#57606a">drafting 5 tokens</text>
+  <text x="775" y="182" font-size="11.5" fill="#57606a">= error snowball</text>
+  <line x1="745" y1="250" x2="790" y2="190" stroke="#cf222e" stroke-width="1" stroke-dasharray="3,3"/>
+</svg>
