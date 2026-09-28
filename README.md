@@ -36,7 +36,7 @@
 
 > ⚠️ **刻意不用** `--reasoning-budget` 和 `--chat-template-file`：模型自带 10 种模式系统（5 reasoning + 5 instruct，einstein/spoon/xhigh…，聊天中实时切换），旧运行时补丁与它**冲突**（叠加后更慢、思考更多）。
 >
-> 📦 **需要下载的三件套**：① [esatapedico / TWIN-TURBO-NVFP4-GGUF](https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-NVFP4-GGUF) 选 **MID-HIGH** 档（15.75 GB）· ② [mmproj](https://huggingface.co/Qwen/Qwen3.8-27B)（~0.9 GB，建议自量化成 Q8_0 = 600 MB）· ③ [llama.cpp b11223+ Windows CUDA 包](https://github.com/ggml-org/llama.cpp/releases)（主程序 + cudart 两个 zip）。国内把 `huggingface.co` 换成 `hf-mirror.com`。
+> 📦 **需要下载的三件套**：① [esatapedico / TWIN-TURBO-NVFP4-GGUF](https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-GGUF) 选 **MID-HIGH** 档（15.75 GB）· ② [mmproj](https://huggingface.co/Qwen/Qwen3.8-27B)（~0.9 GB，建议自量化成 Q8_0 = 600 MB）· ③ [llama.cpp b11223+ Windows CUDA 包](https://github.com/ggml-org/llama.cpp/releases)（主程序 + cudart 两个 zip）。国内把 `huggingface.co` 换成 `hf-mirror.com`。
 
 ---
 
