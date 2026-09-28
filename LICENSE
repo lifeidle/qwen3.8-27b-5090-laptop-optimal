@@ -43,7 +43,7 @@ required at runtime and remain under their own licenses:
 | Component | License | Source |
 |---|---|---|
 | Qwen3.8-27B model weights | Apache License 2.0 (commercial use permitted) | https://huggingface.co/Qwen/Qwen3.8-27B |
-| Qwen3.8-27B-NVFP4-MTP GGUF (quantized weights) | See the model card | https://huggingface.co/esatapedico/Qwen3.8-27B-NVFP4-MTP-GGUF |
+| Qwen3.8-27B-TWIN-TURBO GGUF (quantized weights, current) | See the model card | https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-GGUF |
 | llama.cpp | MIT License | https://github.com/ggml-org/llama.cpp |
 | NVIDIA CUDA Toolkit | NVIDIA Software License Agreement | https://developer.nvidia.com/cuda-toolkit |
 
