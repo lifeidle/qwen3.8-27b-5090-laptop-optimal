@@ -10,7 +10,8 @@
 | Item | Author | Link |
 |---|---|---|
 | Qwen3.8-27B (base model, Apache 2.0) | Qwen team, Alibaba Group | https://huggingface.co/Qwen/Qwen3.8-27B |
-| Qwen3.8-27B-NVFP4-MTP-GGUF (the quantized family we benchmark) | **esatapedico** | https://huggingface.co/esatapedico/Qwen3.8-27B-NVFP4-MTP-GGUF |
+| Qwen3.8-27B-TWIN-TURBO GGUF (current weights, rounds 8-10) | **esatapedico** | https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-GGUF |
+| Qwen3.8-27B-NVFP4-MTP-GGUF (rounds 1-8 benchmark family) | **esatapedico** | https://huggingface.co/esatapedico/Qwen3.8-27B-NVFP4-MTP-GGUF |
 | Qwen3.8-27B-GSQ-RCO-GGUF (compared in round 1) | ISTA-DASLab | https://huggingface.co/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF |
 | Unsloth Dynamic GGUF family (compared in round 1) | Unsloth | https://huggingface.co/unsloth/Qwen3.8-27B-GGUF |
 
