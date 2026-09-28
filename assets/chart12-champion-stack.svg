@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="470" viewBox="0 0 880 470" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="880" height="470" fill="#ffffff"/>
+  <rect x="1" y="1" width="878" height="468" fill="none" stroke="#d0d7de" stroke-width="1" rx="10"/>
+
+  <text x="30" y="42" font-size="21" font-weight="700" fill="#1f2328">Current champion - RTX 5090 Laptop 24GB (2026-09-28)</text>
+  <text x="30" y="64" font-size="13" fill="#57606a">every number below is server-timed and re-verified - see data/2026-09-28-final-stack-tuning.md</text>
+
+  <!-- left: stack -->
+  <text x="30" y="96" font-size="12" font-weight="700" fill="#57606a">STACK</text>
+  <rect x="30" y="106" width="380" height="66" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="46" y="128" font-size="11" font-weight="700" fill="#0969da">MODEL</text>
+  <text x="46" y="148" font-size="14" font-weight="600" fill="#1f2328">Qwen3.8-27B TWIN-TURBO MID-HIGH</text>
+  <text x="46" y="164" font-size="11.5" fill="#57606a">NVFP4 GGUF, 15.75 GB, vision-capable</text>
+
+  <rect x="30" y="184" width="380" height="66" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="46" y="206" font-size="11" font-weight="700" fill="#0969da">SPECULATIVE DECODING</text>
+  <text x="46" y="226" font-size="14" font-weight="600" fill="#1f2328">built-in MTP, draft-n-max 3</text>
+  <text x="46" y="242" font-size="11.5" fill="#57606a">finetune's own heads + CUDA graphs (b11223)</text>
+
+  <rect x="30" y="262" width="380" height="66" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="46" y="284" font-size="11" font-weight="700" fill="#0969da">PRECISION CHAIN</text>
+  <text x="46" y="304" font-size="14" font-weight="600" fill="#1f2328">all-Q8_0 heads + q8_0 KV cache</text>
+  <text x="46" y="320" font-size="11.5" fill="#57606a">near-lossless, stable over multi-turn accumulation</text>
+
+  <rect x="30" y="340" width="380" height="66" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="46" y="362" font-size="11" font-weight="700" fill="#0969da">ENGINE</text>
+  <text x="46" y="382" font-size="14" font-weight="600" fill="#1f2328">llama.cpp b11223 (v0.5.0-dev)</text>
+  <text x="46" y="398" font-size="11.5" fill="#57606a">official prebuilt, CUDA 13.4, Windows x64</text>
+
+  <!-- right: KPIs -->
+  <text x="440" y="96" font-size="12" font-weight="700" fill="#57606a">MEASURED</text>
+  <rect x="440" y="106" width="195" height="96" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="456" y="152" font-size="27" font-weight="700" fill="#1a7f37">74-78</text>
+  <text x="456" y="172" font-size="12" fill="#57606a">tok/s decode</text>
+  <text x="456" y="190" font-size="11" fill="#57606a">(vision loaded)</text>
+
+  <rect x="645" y="106" width="195" height="96" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="661" y="152" font-size="27" font-weight="700" fill="#cf222e">-93%</text>
+  <text x="661" y="172" font-size="12" fill="#57606a">overthinking</text>
+  <text x="661" y="190" font-size="11" fill="#57606a">fixed in model weights</text>
+
+  <rect x="440" y="214" width="195" height="96" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="456" y="260" font-size="27" font-weight="700" fill="#1f2328">3.9 s</text>
+  <text x="456" y="280" font-size="12" fill="#57606a">per image</text>
+  <text x="456" y="298" font-size="11" fill="#57606a">vision ON (mmproj q8_0)</text>
+
+  <rect x="645" y="214" width="195" height="96" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="661" y="260" font-size="27" font-weight="700" fill="#1f2328">160K</text>
+  <text x="661" y="280" font-size="12" fill="#57606a">context tokens</text>
+  <text x="661" y="298" font-size="11" fill="#57606a">= 163,840 tokens</text>
+
+  <rect x="440" y="322" width="400" height="84" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+  <text x="456" y="348" font-size="12" font-weight="700" fill="#1a7f37">WHY IT WON</text>
+  <text x="456" y="368" font-size="12.5" fill="#1f2328">thinking fixed at model level -93%, full-precision chain,</text>
+  <text x="456" y="386" font-size="12.5" fill="#1f2328">12-min full-load zero decay, vision in - the only trade-off:</text>
+
+  <!-- trade-off strip -->
+  <rect x="30" y="418" width="810" height="36" rx="8" fill="#fff8c5" stroke="#d4a72c"/>
+  <text x="46" y="441" font-size="13" font-weight="600" fill="#7d4e00">THE ONE TRADE-OFF: context capped at 160K - measured VRAM cliff at ~180K (192K = -25%). Everything else is at its ceiling.</text>
+</svg>
