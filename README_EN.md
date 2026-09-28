@@ -36,7 +36,7 @@
 
 > ⚠️ **Deliberately NOT used**: `--reasoning-budget` and `--chat-template-file` — the model ships its own 10-mode system (einstein/spoon/xhigh…); old runtime patches conflict with it.
 >
-> 📦 **Three downloads**: [esatapedico / TWIN-TURBO-NVFP4-GGUF](https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-NVFP4-GGUF) → **MID-HIGH** tier (15.75 GB) · [mmproj](https://huggingface.co/Qwen/Qwen3.8-27B) (~0.9 GB, self-quantize to Q8_0 = 600 MB) · [llama.cpp b11223+ Windows CUDA](https://github.com/ggml-org/llama.cpp/releases) (main + cudart zips).
+> 📦 **Three downloads**: [esatapedico / TWIN-TURBO-NVFP4-GGUF](https://huggingface.co/esatapedico/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NVFP4-GGUF) → **MID-HIGH** tier (15.75 GB) · [mmproj](https://huggingface.co/Qwen/Qwen3.8-27B) (~0.9 GB, self-quantize to Q8_0 = 600 MB) · [llama.cpp b11223+ Windows CUDA](https://github.com/ggml-org/llama.cpp/releases) (main + cudart zips).
 
 ---
 
